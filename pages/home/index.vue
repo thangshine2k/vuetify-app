@@ -136,6 +136,9 @@ const activateItem2 = () => {
     enableItem.value = false;
     closeItem.value = true; // Đảm bảo item-text1 trở về mặc định
 };
+const demo = () => {
+    closeItem.value = true; // Đảm bảo item-text1 trở về mặc định
+}
 
 </script>
 
