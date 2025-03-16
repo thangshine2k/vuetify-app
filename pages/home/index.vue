@@ -140,6 +140,11 @@ const demo = () => {
     closeItem.value = true; // Đảm bảo item-text1 trở về mặc định
 }
 
+const demo1= () => {
+    closeItem.value = true; // Đảm bảo item-text1 trở về mặc định
+}
+
+
 </script>
 
 <template>
