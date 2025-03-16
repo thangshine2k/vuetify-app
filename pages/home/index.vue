@@ -141,6 +141,7 @@ const demo = () => {
 }
 
 const demo1= () => {
+    enableItem.value = false;
     closeItem.value = true; // Đảm bảo item-text1 trở về mặc định
 }
 
