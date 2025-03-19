@@ -27,13 +27,8 @@ export default defineNuxtPlugin((app) => {
       },
     },
     icons: {
-      defaultSet: 'fa',
+      defaultSet: 'mdi',
 
-    aliases,
-    sets: {
-      fa,
-      mdi
-    },
   },
   })
   app.vueApp.use(vuetify)

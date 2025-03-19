@@ -27,7 +27,7 @@
 
 
     <v-data-table v-model:selected="selected" :headers="headers" :items="filteredPermissions" class="custom-table"
-      show-select hover item-value="id" @click:row="handleRowClick" @update:modelValue="handleSelection">
+      show-select hover @click:row="handleRowClick" @update:selected="handleSelection">
       <template v-slot:item.actions="{ item }">
         <v-icon color="black" @click="editPermission(item)">mdi-pencil</v-icon>
       </template>
@@ -55,11 +55,12 @@ const handleSelection = (newSelection) => {
   console.log("Dòng đã chọn:", newSelection);
 };
 // Lấy vị trí dòng được click
-const handleRowClick = (event, { item, index }) => {
-  selected.value = item
+const handleRowClick = ({ item, index }) => {
+  selected.value = [item]; // Cập nhật thành mảng chứa item
   console.log("Bạn vừa click vào dòng:", index, "Dữ liệu:", item);
-  console.log(selected)
 };
+
+
 const permissions = ref([
   { id: 1, effectiveFrom: "2025/12/21", permission: "Reviewer Manager", scope: "View permission scope.", members: "View 32 members", actions: false, sort: false },
   { id: 2, effectiveFrom: "2025/11/15", permission: "Admin", scope: "Full access", members: "View 50 members", actions: false, sort: false },
@@ -97,10 +98,12 @@ const editPermission = (item) => {
 };
 
 const exportPermission = (item) => {
-  console.log("Editing:", item);
+  console.log("Exporting:", item);
 };
 
 </script>
+
+
 
 <style scoped lang="scss">
 .custom-search :deep(.v-field) {
@@ -128,10 +131,6 @@ const exportPermission = (item) => {
 .custom-search {
   width: 30vw;
   margin-left: auto;
-}
-
-.custom-table .v-data-table-header__content {
-  white-space: nowrap;
 }
 
 .custom-table th:nth-child(1) {
