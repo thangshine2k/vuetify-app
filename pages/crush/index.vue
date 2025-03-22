@@ -23,7 +23,7 @@ const questions = ref([
     special: 'Vì khi em cười, thế giới của anh trở nên rực rỡ hơn! 💖'
   },
   { 
-    question: 'Nếu anh có 3 điều ước, em nghĩ anh sẽ ước gì? ✨', 
+    question: 'Có 3 điều ước, em nghĩ anh sẽ ước gì? ✨', 
     answers: [
       'Anh ước có thật nhiều tiền 💰',
       'Anh chỉ cần một điều ước thôi, đó là em luôn hạnh phúc! 💖',
@@ -76,32 +76,32 @@ const selectAnswer = (qIndex, aIndex) => {
 
 <template>
   <v-container class="d-flex flex-column justify-center align-center fill-height">
-    <v-card class="pa-5 text-center" color="pink lighten-3" elevation="10">
-      <v-card-title class="text-h4 font-weight-bold text-white">
+    <v-card class="pa-3 text-center" color="pink lighten-3" elevation="8" width="80%" max-width="350px">
+      <v-card-title class="text-h5 font-weight-bold text-white">
         🌸 Hello My Crush 🌸
       </v-card-title>
-      <v-card-text class="text-h6 text-white">
+      <v-card-text class="text-body-2 text-white">
         {{ message }}
       </v-card-text>
-      <v-btn color="red darken-2" size="x-large" @click="sendLove" class="mt-3">
+      <v-btn color="red darken-2" size="small" @click="sendLove" class="mt-2">
         Gửi Yêu Thương 💝
       </v-btn>
       <transition name="fade">
-        <v-icon v-if="showHeart" class="heart-icon" color="red" size="100">
+        <v-icon v-if="showHeart" class="heart-icon mt-2" color="red" size="50">
           mdi-heart
         </v-icon>
       </transition>
     </v-card>
 
     <v-expand-transition>
-      <v-card v-if="showQuestions" class="mt-5 pa-5" color="purple lighten-4" elevation="8">
-        <v-card-title class="text-h5 font-weight-bold text-center">Câu hỏi thú vị dành cho em! ✨</v-card-title>
-        <v-list>
-          <v-list-item v-for="(q, qIndex) in questions" :key="qIndex" @click="revealAnswers(qIndex)" class="question-item">
-            <v-list-item-title class="text-body-1 font-weight-bold">{{ q.question }}</v-list-item-title>
+      <v-card v-if="showQuestions" class="mt-4 pa-3" color="purple lighten-4" elevation="1" width="80%" max-width="350px">
+        <v-card-title class="text-h6 font-weight-bold text-center">Câu hỏi thú vị dành cho em! ✨</v-card-title>
+        <v-list class="question-list">
+            <v-list-item v-for="(q, qIndex) in questions" :key="qIndex" @click="revealAnswers(qIndex)" class="question-item">
+                <v-list-item-title class="text-body-2 font-weight-bold">{{ q.question }}</v-list-item-title>
             <transition name="answer">
-              <v-list v-if="selectedQuestion === qIndex">
-                <v-list-item v-for="(answer, aIndex) in q.answers" :key="aIndex" @click.stop="selectAnswer(qIndex, aIndex)" class="answer-item">
+              <v-list v-if="selectedQuestion === qIndex" class="answer-list">
+                <v-list-item  v-for="(answer, aIndex) in q.answers" :key="aIndex" @click.stop="selectAnswer(qIndex, aIndex)" class="answer-item text-body-2">
                   {{ answer }}
                 </v-list-item>
               </v-list>
@@ -109,14 +109,15 @@ const selectAnswer = (qIndex, aIndex) => {
           </v-list-item>
         </v-list>
         <transition name="special">
-          <v-card v-if="specialMessage" class="special-message mt-3 pa-3" color="deep-purple lighten-3" elevation="5">
-            <v-card-text class="text-h6 text-white font-weight-bold text-center">{{ specialMessage }}</v-card-text>
+          <v-card v-if="specialMessage" class="special-message mt-2 pa-2" color="deep-purple lighten-3" elevation="3">
+            <v-card-text class="text-body-2 text-white font-weight-bold text-center">{{ specialMessage }}</v-card-text>
           </v-card>
         </transition>
       </v-card>
     </v-expand-transition>
   </v-container>
 </template>
+
 
 <style scoped>
 .heart-icon {
@@ -172,6 +173,7 @@ const selectAnswer = (qIndex, aIndex) => {
   background: white;
   margin-bottom: 10px;
   transition: background 0.3s;
+  white-space: nowrap;
 }
 
 .question-item:hover {
@@ -183,8 +185,9 @@ const selectAnswer = (qIndex, aIndex) => {
   padding: 8px;
   border-radius: 5px;
   background: #fff;
-  margin-top: 5px;
   transition: background 0.3s;
+  position: relative;
+  top: 0;
 }
 .answer-item:hover {
   background: #ffebee;
@@ -192,7 +195,42 @@ const selectAnswer = (qIndex, aIndex) => {
 
 .special-message {
   border-radius: 10px;
-  padding: 15px;
   text-align: center;
+  bottom: 16px;
 }
+
+.question-list {
+  width: 100%;
+  overflow: hidden;
+}
+
+.v-list-item-title {
+    font-size: 10px !important;
+    z-index: 100000 !important;
+    white-space: nowrap !important;
+}
+
+.question-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: block;
+}
+
+.answer-list {
+  max-width: 100%;
+  word-wrap: break-word;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.answer-item {
+  word-break: break-word;
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 </style>
