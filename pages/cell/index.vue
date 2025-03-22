@@ -62,21 +62,21 @@ const setting = ref([
 const startDrag = (event: DragEvent, item: { text: string; icon: string }) => {
     if (event.dataTransfer) {
         event.dataTransfer.setData("text/plain", JSON.stringify(item));
-    }   
+    }
 };
 
 
-const onDrop = (event: DragEvent, employee: { criteria: any[]; }) => {
-  if (event.dataTransfer) {
-    const data = event.dataTransfer.getData('text/plain');
-    console.log('Data received:', data);
-    const item = JSON.parse(data);
-    console.log('Parsed item:', item);
+const onDrop = (event: DragEvent, employee: { setting: any[]; }) => {
+    if (event.dataTransfer) {
+        const data = event.dataTransfer.getData('text/plain');
+        console.log('Data received:', data);
+        const item = JSON.parse(data);
+        console.log('Parsed item:', item);
 
-    if (!employee.criteria.some(c => c.name === item.name)) {
-      employee.criteria.push(item);
+        if (!employee.setting.some(c => c.text === item.text)) {
+            employee.setting.push(item);
+        }
     }
-  }
 };
 
 
@@ -140,33 +140,35 @@ const removeCriteria = (employee: { setting: any[]; }, index: any) => {
 
         <v-divider style="position: relative; bottom: 24px;" thickness="2" width="28%"></v-divider>
         <v-data-table :headers="headers" :items="items" class="bordered-table" hide-default-footer>
-    <template v-slot:headers>
-        <tr>
-            <th v-for="(header, index) in headers" :key="index" class="custom-cell">
-                {{ header.title }}
-            </th>
-        </tr>
-    </template>
+            <template v-slot:headers>
+                <tr>
+                    <th v-for="(header, index) in headers" :key="index" class="custom-cell">
+                        {{ header.title }}
+                    </th>
+                </tr>
+            </template>
 
-    <template v-slot:item="{ item, index }">
-        <tr :class="{ 'first-row': index === 0 }">
-            <td v-for="(header, idx) in headers" :key="idx" class="custom-cell">
-                <template v-if="header.key === 'setting'">
-                    <div class="drop-zone" @dragover.prevent @drop="onDrop($event, item)">
-                        <v-chip v-for="(c, i) in item.setting" :key="i" class="ma-1"
-                            @click:close="removeCriteria(item, i)">
-                            {{ c.text }}
-                            <v-icon>{{ c.icon }}</v-icon>
-                        </v-chip>
-                    </div>
-                </template>
-                <template v-else>
-                    {{ item[header.key] }}
-                </template>
-            </td>
-        </tr>
-    </template>
-</v-data-table>
+            <template v-slot:item="{ item, index }">
+                <tr :class="{ 'first-row': index === 0 }">
+                    <td v-for="(header, idx) in headers" :key="idx" class="custom-cell">
+                        <template v-if="header.key === 'setting'">
+                            <div class="drop-zone" @dragover.prevent @drop="onDrop($event, item)">
+                                <v-chip v-for="(c, i) in item.setting" :key="i" class="ma-1"
+                                    @click:close="removeCriteria(item, i)">
+                                    {{ c.text }}
+                                    <v-icon>{{ c.icon }}</v-icon>
+                                    <v-icon class="close-icon" @click="removeCriteria(item, i)">mdi-close</v-icon>
+
+                                </v-chip>
+                            </div>
+                        </template>
+                        <template v-else>
+                            {{ item[header.key] }}
+                        </template>
+                    </td>
+                </tr>
+            </template>
+        </v-data-table>
 
 
     </v-container>
@@ -185,6 +187,31 @@ const removeCriteria = (employee: { setting: any[]; }, index: any) => {
 
 .bordered-table {
     border-collapse: collapse !important;
+    width: 100%;
+}
+
+// .drop-zone {
+//     min-height: 40px;
+//     padding: 8px;
+//     border: 2px dashed #2196F3;
+//     border-radius: 5px;
+//     background-color: #f0f8ff;
+//     display: flex;
+//     flex-wrap: wrap;
+//     align-items: center;
+//     justify-content: flex-start;
+//     transition: background-color 0.3s ease-in-out;
+// }
+
+.drop-zone:hover {
+    background-color: #e3f2fd;
+}
+
+.drop-zone:empty::before {
+    content: "Drag items here";
+    color: #9e9e9e;
+    font-size: 14px;
+    text-align: center;
     width: 100%;
 }
 

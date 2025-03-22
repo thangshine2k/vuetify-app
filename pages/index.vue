@@ -45,10 +45,9 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
 
 const search = ref('');
-const isDialog = ref(false); // Correct usage with reactive ref
+const isDialog = ref(false); 
 const isFormValid = ref(false);
 
 const headers = [
@@ -137,7 +136,9 @@ const resetForm = () => {
 
 
 <style scoped>
+
 .v-card {
   color: #505050;
 }
+
 </style>

@@ -10,7 +10,7 @@ import { mdi } from 'vuetify/iconsets/mdi'
 export default defineNuxtPlugin((app) => {
   const vuetify = createVuetify({
     theme: {
-      defaultTheme: 'customTheme',
+      defaultTheme: 'light',
       themes: {
         customTheme: {
           dark: true, // Set to true if you want a dark theme
