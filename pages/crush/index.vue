@@ -49,7 +49,7 @@ const sendLove = () => {
   setTimeout(() => {
     showHeart.value = false;
     showQuestions.value = true;
-  }, 1000);
+  }, 0);
 };
 
 const revealAnswers = (index) => {
